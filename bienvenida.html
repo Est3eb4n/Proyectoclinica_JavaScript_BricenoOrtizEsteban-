@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="sp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<header>
+  <div class="contenedor">
+    <nav class="menu">
+      <ul>
+        <a href="#Registro De Personal"><li>Registro De Personal</li></a>
+        <a href="#Registro De pacientes"><li>Registro De Pasientes</li></a>
+        <a href="#Receta Medica"><li>Recetas Medicas</li></a>
+        <a href="#Historial Medico"><li>Histodial de paciente</li></a>
+      </ul>
+    </nav>
+  </div>
+</header>
+<body>
+
+  <section id="container">
+    <div class="xd">
+      <h2 id="Registro De Personal">Registro De Personal</h2>
+      <form id="formulario">
+        <input type="text" class="txt" name="cc" placeholder="Cédula">
+        <input type="text" class="txt" name="nombre" placeholder="Nombre">
+        <input type="text" class="txt" name="apellido" placeholder="Apellido">
+        <input type="email" class="txt" name="correo" placeholder="Correo">
+        <input type="text" class="txt" name="telefono" placeholder="Teléfono">
+        <input type="password" class="txt" name="clave" placeholder="Clave">
+        <input type="text" class="txt" name="cargo" placeholder="Cargo">
+        <button type="button" class="txt" id="prin">Guardar</button>
+      </form>
+    </div>
+
+    <div class="xd">
+      <h2 id="Registro De pacientes">Registro De pacientes</h2>
+      <input type="text" class="txt" placeholder="No. Identificación">
+      <input type="text" class="txt" placeholder="Nombre">
+      <input type="text" class="txt" placeholder="Apellido">
+      <input type="text" class="txt" placeholder="Fecha de nacimiento">
+      <input type="file" name="" id="">
+      <select class="txt">
+        <option  value="Genero">Genero</option>
+        <option  value="Masculino">Masculino</option>
+        <option  value="Femenino">Femenino</option>
+        <option  value="Otros">32 clases de gay</option>
+      </select>
+      <a href="index.html"><button id="prin">GUARDAR</button></a>
+    </div>
+
+        <!-- ShadowDOM -->
+      <div class="xd">
+        <h2 id="Receta Medica">Receta Medica</h2>
+
+        <input type="text" name="" id="" placeholder="Ingrese el numero de Identificación del paciente">
+        <div>
+          <h3>Sintomas del paciente</h3>
+          <input type="text" name="" id="" placeholder="Ingrece los sintomas del paciente">
+        </div>
+        <div>
+          <h3>Diagnostico del paciente</h3>
+          <input type="text" name="" id="" placeholder="Ingrece el diagnostico del paciente">
+        </div>
+        <div>
+          <h3>Receta Medica</h3>
+          <input type="text" name="" id="" placeholder="Ingrece el nombre del medicamento">
+          <input type="text" name="" id="" placeholder="Ingrece la dosis">
+          <input type="text" name="" id="" placeholder="Ingrece el tiempo de tratamiento">
+        </div>
+      </div>
+
+  </section>
+  <script src="sub-main.js"></script>
+</body>
+</html>
+
+<div class="device">
+  <div class="screen">
+    <div class="menu">
+      <ul>
+        <li class="lock"><a href="">Lock</a></li>
+        <li class="share"><a href="">Share</a></li>
+        <li class="download"><a href="">Download</a></li>
+      </ul>
+    </div>
+    <div class="toggle">
+      <div class="x"></div>
+      <div class="y"></div>
+    </div>
+    <div class="content"></div>
+  </div>
+</div>
+<div class="circle"></div>

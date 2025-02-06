@@ -1,0 +1,131 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+body{
+  padding: 0px 10% 0px 10%;
+}
+
+/********************************************************/                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+/******************** INICIO GENERAL ********************/                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+/********************************************************/
+
+.menu{
+  width: 100%;
+  height: 20vh;
+  background: var(--cafe--);
+  z-index: 100;
+}
+.menu li{
+  list-style: none;
+  height: 40px;
+  font-size: 25px;
+}
+.menu a{
+  display: block;
+  color: #000;
+  height: 40px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--azul--);
+  border-radius: 50px;
+  padding: 5px 0px 0px 30px;
+}
+.menu a:hover{
+  background: #7cedfc;
+}
+
+/********************************************************/                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+/******************** INICIO GENERAL ********************/                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+/********************************************************/
+#container{
+  display: inline-block;
+  width: 100%;
+  height: 1100px;
+  height: 1500px;
+  text-align: center;
+  background-image:linear-gradient(350deg, #1b2, rgb(238, 255, 0));
+  box-shadow: 3px 50px 30px black;
+  border-radius: 10px;
+
+
+}
+.txt{
+  display: flex;
+  width: 80%;
+  height: 9%;
+  margin-left: 25px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: solid 2px gray;
+  border-radius: 10px;
+  padding: 10px;
+}
+#prin{
+  padding: 2% 34%;
+  border-radius: 10px;
+  border: none;
+  background: rgb(16, 111, 255);
+  color: #fff;
+  font-size: 16px;
+  display: flex;
+  display: flex;
+  margin-left: 25px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.xd{
+  width: 100%;
+  height: 600px;
+  background: #fff;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.ola{
+  width: 100%;
+  height: 100px;
+  display: flex;
+  border-bottom: 0.5px solid gray;
+  padding-bottom: 10px;
+}
+
+.cara{
+  width: 100%;
+  height: 50px;
+  text-align: left;
+  font-size: 30px;
+}
+.cierre{
+  text-decoration: none;
+  color: gray;
+}
+.ch-in{
+  font-size: 50px;
+  margin: 35px 0% 35px 0%;
+}
+
+.lol{
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  padding-left: 10%;
+}
+.checkbox {
+  display: flex;
+  align-items: center;
+  padding: 20px 20px;
+}
+#rememberMe{
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  margin-left: 20px;
+}
+
+.foot{
+  color: blue;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
