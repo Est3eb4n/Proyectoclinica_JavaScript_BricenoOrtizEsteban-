@@ -208,14 +208,6 @@ btnGuardarReceta.addEventListener("click", (event) => {
   const docis = document.getElementById("docis").value;
   const tratamiento = document.getElementById("tratamiento").value;
 
-  // Verificar los valores obtenidos del formulario
-  console.log("Número de identificación:", numIdentificacion);
-  console.log("Síntomas:", sintomas);
-  console.log("Diagnóstico:", diagnostico);
-  console.log("Nombre del medicamento:", nombreMedicamento);
-  console.log("Dosis:", docis);
-  console.log("Tratamiento:", tratamiento);
-
   // Guardar la receta en IndexedDB
   agregarReceta(numIdentificacion, sintomas, diagnostico, nombreMedicamento, docis, tratamiento);
 });
@@ -226,72 +218,111 @@ btnGuardarReceta.addEventListener("click", (event) => {
 //**************************** Mostar historia mecida *******************************/
 //***********************************************************************************/
 
-const numeroDeId = document.getElementById("numeroDeId")
-const btnGenerarHistoria = document.getElementById("btnGenerarHistoria")
 
-let historiasMedicas = indexedDB.open('clinica', 1);
+const btnGenerarHistoria = document.getElementById("btnGenerarHistoria");
+const historialMedico = document.getElementById("historialMedico");
 
-historiasMedicas.onsuccess = function (event) {
-  let baseDDPac = event.target.result;
-}
-
-historiasMedicas.onerror = function (event) {
-  console.error("Error al abrir la base de datos", event.target.errorCode
-  );
-};
-
+// Función para obtener los datos de la base de datos
 function obtenerDatos() {
-  let transactionPacientes = baseDDPac.transactionPacientes(["clinica"], "readonly")
 
-  let storePacientes = transactionPacientes.objectStore("clinica");
+  const openDB = window.indexedDB.open('clinica', 1);
 
-  let historiasMedicas = storePacientes.getAll();
+  openDB.onerror = () => console.error('Error abriendo la base de datos');
 
-  historiasMedicas.onsuccess = function (event) {
-    let datos = event.target.result;
-    console.log("Datos Obtenidos correctamente", datos)
-  }
-
-  historiasMedicas.onerror = function (event) {
-    console.log("Error al obtener la base de datos".event.target.errorCode)
+  openDB.onsuccess = () => {
+    const numeroDeId = document.getElementById("numeroDeId").value;
+    let datosPaciente;
+    let db = openDB.result;
+    const transaction = db.transaction(['pacientes','recetas'], 'readonly'); // Crear una transacción
+    const storePaciente = transaction.objectStore('pacientes'); // Acceder al almacén de objetos
+    const storeRecetas = transaction.objectStore('recetas'); // Acceder al almacén de objetos
+    const requestPacientes = storePaciente.getAll(); // Obtener todos los registros
+    
+   
+    console.log(datosPaciente)
+    requestPacientes.onsuccess = function (event) {
+      let datos = event.target.result;
+      for (const paciente of datos) {
+        if(paciente.doc == numeroDeId){
+          datosPaciente=paciente;
+          break
+        }
+      }
+      console.log("Datos obtenidos correctamente", datos);
+      mostrarDatosEnTabla(datos); // Mostrar los datos en la tabla
+    };
+  
+    requestPacientes.onerror = function (event) {
+      console.error("Error al obtener los datos", event.target.errorCode);
+    };
   }
 }
 
-const historialMedico = document.getElementById("historialMedico")
+// Función para mostrar los datos en la tabla
+function mostrarDatosEnTabla(datos) {
+  const tabla = document.querySelector('#historialMedico mi-historial .tabla table');
+  let tbody = tabla.querySelector('tbody');
 
+  // Si ya existe un tbody, lo limpiamos
+  if (tbody) {
+    tbody.innerHTML = '';
+  } else {
+    // Si no existe, lo creamos
+    tbody = document.createElement('tbody');
+    tabla.appendChild(tbody);
+  }
+
+  datos.forEach(paciente => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${paciente.nombre}</td>
+      <td>${paciente.numeroDocumento}</td>
+      <td>${paciente.sintomas}</td>
+      <td>${paciente.diagnostico}</td>
+      <td>${paciente.medicamento}</td>
+      <td>${paciente.dosis}</td>
+      <td>${paciente.tiempoTratamiento}</td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
+// Definir el componente personalizado para la tabla
 class MiHistorial extends HTMLElement {
   constructor() {
     super();
-    this.innerHTML =
-      `
-    <div class = "tabla">
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Número de documento</th>
-            <th>Síntomas del paciente</th>
-            <th>Diagnóstico del paciente</th>
-            <th>Nombre del medicamento</th>
-            <th>Dosis</th>
-            <th>Tiempo de tratamiento</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-    `
+    this.innerHTML = `
+      <div class="tabla">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Número de documento</th>
+              <th>Síntomas del paciente</th>
+              <th>Diagnóstico del paciente</th>
+              <th>Nombre del medicamento</th>
+              <th>Dosis</th>
+              <th>Tiempo de tratamiento</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    `;
   }
 }
+
+// Registrar el componente personalizado
 customElements.define('mi-historial', MiHistorial);
 
-
-
-
+// Evento para el botón "Generar Historia"
 btnGenerarHistoria.addEventListener("click", (event) => {
   event.preventDefault();
-  historiasMedicas.onsuccess = function (event) {
-    let bd = event.target.result;
-    obtenerDatos();
-  }
-  historialMedico.innerHTML = `<mi-historial></mi-historial>`;
-})
+
+  // Limpiar el contenido antes de insertar el componente
+  historialMedico.innerHTML = '';
+  historialMedico.innerHTML = `<mi-historial></mi-historial>`; // Mostrar la tabla
+
+  obtenerDatos(); // Obtener los datos de la base de datos
+});
+
+initDB()  
