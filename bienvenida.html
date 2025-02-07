@@ -21,10 +21,9 @@
 <body>
 
   <section id="container">
-
     <div class="xd">
       <h2 id="Registro De Personal">Registro De Personal</h2>
-      <form id="formularioMedico">
+      <form id="formulario">
         <input type="text" class="txt" name="cc" placeholder="Cédula">
         <input type="text" class="txt" name="nombre" placeholder="Nombre">
         <input type="text" class="txt" name="apellido" placeholder="Apellido">
@@ -32,51 +31,66 @@
         <input type="text" class="txt" name="telefono" placeholder="Teléfono">
         <input type="password" class="txt" name="clave" placeholder="Clave">
         <input type="text" class="txt" name="cargo" placeholder="Cargo">
-        <button type="button" class="btn" id="btnPersonal">Guardar</button>
+        <button type="button" class="txt" id="prin">Guardar</button>
       </form>
     </div>
 
     <div class="xd">
-      <form id="formularioPacientes">
-        <h2 id="Registro De pacientes">Registro De pacientes</h2>
-        <input type="text" class="txt" name="doc" placeholder="No. Identificación">
-        <input type="text" class="txt" name="nombrePaciente" placeholder="Nombre">
-        <input type="text" class="txt" name="apellidoPaciente" placeholder="Apellido">
-        <input type="text" class="txt" name="fecha" placeholder="Fecha de nacimiento">
-        <input type="text" class="txt" name="genero" placeholder="Genero">
-        <input type="file"  name="imagen">
-        <button class="btn" id="btnPaciente">GUARDAR</button>
-      </form>
+      <h2 id="Registro De pacientes">Registro De pacientes</h2>
+      <input type="text" class="txt" placeholder="No. Identificación">
+      <input type="text" class="txt" placeholder="Nombre">
+      <input type="text" class="txt" placeholder="Apellido">
+      <input type="text" class="txt" placeholder="Fecha de nacimiento">
+      <input type="file" name="" id="">
+      <select class="txt">
+        <option  value="Genero">Genero</option>
+        <option  value="Masculino">Masculino</option>
+        <option  value="Femenino">Femenino</option>
+        <option  value="Otros">32 clases de gay</option>
+      </select>
+      <a href="index.html"><button id="prin">GUARDAR</button></a>
     </div>
 
-        <div class="xd">
-          <form id="formularioReceta">
-            <h2 id="Receta Medica">Receta Medica</h2>
-        
-            <input type="text" name="numIdentificacion" id="identificación" placeholder="Ingrese el numero de Identificación del paciente">
-            
-            <div>
-              <h3>Sintomas del paciente</h3>
-              <input type="text" name="sintomas" id="sintomas" placeholder="Ingrese los sintomas del paciente">
-            </div>
-            
-            <div>
-              <h3>Diagnostico del paciente</h3>
-              <input type="text" name="diagnostico" id="diagnostico" placeholder="Ingrese el diagnostico del paciente">
-            </div>
-            
-            <div>
-              <h3>Receta Medica</h3>
-              <input type="text" name="nombreMedicamento" id="nombreMedicamento" placeholder="Ingrese el nombre del medicamento">
-              <input type="text" name="docis" id="docis" placeholder="Ingrese la dosis">
-              <input type="text" name="tratamiento" id="tratamiento" placeholder="Ingrese el tiempo de tratamiento">
-            </div>
-        
-            <button type="button" id="btnGuardarReceta">Guardar Receta</button>
-          </form>
+        <!-- ShadowDOM -->
+      <div class="xd">
+        <h2 id="Receta Medica">Receta Medica</h2>
+
+        <input type="text" name="" id="" placeholder="Ingrese el numero de Identificación del paciente">
+        <div>
+          <h3>Sintomas del paciente</h3>
+          <input type="text" name="" id="" placeholder="Ingrece los sintomas del paciente">
         </div>
+        <div>
+          <h3>Diagnostico del paciente</h3>
+          <input type="text" name="" id="" placeholder="Ingrece el diagnostico del paciente">
+        </div>
+        <div>
+          <h3>Receta Medica</h3>
+          <input type="text" name="" id="" placeholder="Ingrece el nombre del medicamento">
+          <input type="text" name="" id="" placeholder="Ingrece la dosis">
+          <input type="text" name="" id="" placeholder="Ingrece el tiempo de tratamiento">
+        </div>
+      </div>
 
   </section>
   <script src="sub-main.js"></script>
 </body>
 </html>
+
+<div class="device">
+  <div class="screen">
+    <div class="menu">
+      <ul>
+        <li class="lock"><a href="">Lock</a></li>
+        <li class="share"><a href="">Share</a></li>
+        <li class="download"><a href="">Download</a></li>
+      </ul>
+    </div>
+    <div class="toggle">
+      <div class="x"></div>
+      <div class="y"></div>
+    </div>
+    <div class="content"></div>
+  </div>
+</div>
+<div class="circle"></div>
