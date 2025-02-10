@@ -31,9 +31,9 @@ function initDB() {
           let table = clinicaDB.createObjectStore('recetas', { keyPath: 'numIdentificacion' });
     
           // Crear índices para otros campos (opcional)
-          table.createIndex('nombreMedicamento', 'nombreMedicamento', { unique: false });
           table.createIndex('sintomas', 'sintomas', { unique: false });
           table.createIndex('diagnostico', 'diagnostico', { unique: false });
+          table.createIndex('nombreMedicamento', 'nombreMedicamento', { unique: false });
     
           console.log('Almacén de objetos "recetas" creado correctamente.');
         }
@@ -46,7 +46,7 @@ function initDB() {
     console.log('Base de datos abierta!');
   };
 }
-initDB()
+
 //***********************************************************************************/
 //******************************* Registro medico ***********************************/
 //***********************************************************************************/
@@ -102,7 +102,7 @@ btnGuardar.addEventListener("click", (event) => {
 //***************************** Registro pacientes **********************************/
 //***********************************************************************************/
 
-function agregarPaciente(doc, nom, apellidoPaciente, genero, fecha, imagen) {
+function agregarPaciente(doc, nombrePaciente, apellidoPaciente, genero, fecha, imagen) {
   const openDB = window.indexedDB.open('clinica', 1); // Usa la misma versión
 
   openDB.onerror = () => console.error('Error abriendo la base de datos');
@@ -119,7 +119,7 @@ function agregarPaciente(doc, nom, apellidoPaciente, genero, fecha, imagen) {
     const transaction = registroPacientes.transaction(["pacientes"], "readwrite");
     const pacientesStore = transaction.objectStore("pacientes");
 
-    const nuevoPaciente = { doc, nom, apellidoPaciente, genero, fecha, imagen };
+    const nuevoPaciente = { doc, nombrePaciente, apellidoPaciente, genero, fecha, imagen };
     const agregarRequest = pacientesStore.add(nuevoPaciente);
 
     agregarRequest.onsuccess = () => {
@@ -146,7 +146,7 @@ btnGuardarPaciente.addEventListener("click", (event) => {
 
   agregarPaciente(
     frmData.get("doc"),
-    frmData.get("nom"),
+    frmData.get("nombrePaciente"),
     frmData.get("apellidoPaciente"),
     frmData.get("genero"),
     frmData.get("fecha"),
@@ -224,90 +224,76 @@ const historialMedico = document.getElementById("historialMedico");
 
 // Función para obtener los datos de la base de datos
 function obtenerDatos() {
+
   const openDB = window.indexedDB.open('clinica', 1);
 
   openDB.onerror = () => console.error('Error abriendo la base de datos');
 
   openDB.onsuccess = () => {
     const numeroDeId = document.getElementById("numeroDeId").value;
+    let datosPaciente;
+    let datosReceta
     let db = openDB.result;
-    const transaction = db.transaction(['pacientes', 'recetas'], 'readonly');
-    const storePaciente = transaction.objectStore('pacientes');
-    const storeRecetas = transaction.objectStore('recetas');
-
-    const requestPacientes = storePaciente.getAll();
-    const requestRecetas = storeRecetas.getAll();
-
-    let datosPaciente = null;
-    let datosRecetas = null;
-
+    const transaction = db.transaction(['pacientes','recetas'], 'readonly'); // Crear una transacción
+    const storePaciente = transaction.objectStore('pacientes'); // Acceder al almacén de objetos
+    const storeRecetas = transaction.objectStore('recetas'); // Acceder al almacén de objetos
+    const requestPacientes = storePaciente.getAll(); // Obtener todos los registros
+    const requestReceta = storeRecetas.getAll(); // Obtener todos los registros
+    
+   
+    console.log(datosPaciente)
     requestPacientes.onsuccess = function (event) {
-      const pacientes = event.target.result;
-      datosPaciente = pacientes.find(paciente => paciente.doc == numeroDeId); // Filtrar por número de ID
-
-      if (datosPaciente) {
-        console.log("Datos del paciente obtenidos correctamente", datosPaciente);
-      } else {
-        console.log("No se encontró ningún paciente con ese número de ID");
+      let datos = event.target.result;
+      for (const paciente of datos) {
+        if(paciente.doc == numeroDeId){
+          datosPaciente=paciente;
+          break
+        }
       }
-
-      // Verificar si ya se obtuvieron los datos de recetas
-      if (datosRecetas !== null) {
-        mostrarDatosEnTabla(datosPaciente, datosRecetas);
+      requestReceta.onsuccess = function (event) {
+      let datos = event.target.result;
+      for (const receta of datos) {
+        if(receta.numeroDeIdentidficcion == numeroDeId){
+          datosReceta=receta;
+          break
+        }
       }
+      console.log("Datos obtenidos correctamente", datos);
+      mostrarDatosEnTabla(datos); // Mostrar los datos en la tabla
     };
-
-    requestRecetas.onsuccess = function (event) {
-      const recetas = event.target.result;
-      datosRecetas = recetas.find(receta => receta.numIdentificacion == numeroDeId); // Filtrar por número de ID
-
-      if (datosRecetas) {
-        console.log("Datos de las recetas obtenidos correctamente", datosRecetas);
-      } else {
-        console.log("No se encontró ninguna receta con ese número de ID");
-      }
-
-      // Verificar si ya se obtuvieron los datos del paciente
-      if (datosPaciente !== null) {
-        mostrarDatosEnTabla(datosPaciente, datosRecetas);
-      }
-    };
-
+  
     requestPacientes.onerror = function (event) {
-      console.error("Error al obtener los datos del paciente", event.target.errorCode);
+      console.error("Error al obtener los datos", event.target.errorCode);
     };
-
-    requestRecetas.onerror = function (event) {
-      console.error("Error al obtener los datos de las recetas", event.target.errorCode);
-    };
-  };
+  }
+}
 }
 
-
-
 // Función para mostrar los datos en la tabla
-function mostrarDatosEnTabla(paciente, receta) {
+function mostrarDatosEnTabla(datos) {
   const tabla = document.querySelector('#historialMedico mi-historial .tabla table');
   let tbody = tabla.querySelector('tbody');
 
+  // Si ya existe un tbody, lo limpiamos
   if (tbody) {
     tbody.innerHTML = '';
   } else {
+    // Si no existe, lo creamos
     tbody = document.createElement('tbody');
     tabla.appendChild(tbody);
   }
 
-  const row = document.createElement('tr');
-  row.innerHTML = `
-    <td>${paciente.nom}</td>
-    <td>${paciente.doc}</td>
-    <td>${receta.sintomas}</td>
-    <td>${receta.diagnostico}</td>
-    <td>${receta.nombreMedicamento}</td>
-    <td>${receta.docis}</td>
-    <td>${receta.tratamiento}</td>
-  `;
-  tbody.appendChild(row);
+  datos.forEach(paciente => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${paciente.sintomas}</td>
+      <td>${paciente.diagnostico}</td>
+      <td>${paciente.nombreMedicamento}</td>
+      <td>${paciente.docis}</td>
+      <td>${paciente.tratamiento}</td>
+    `;
+    tbody.appendChild(row);
+  });
 }
 
 // Definir el componente personalizado para la tabla
@@ -316,11 +302,12 @@ class MiHistorial extends HTMLElement {
     super();
     this.innerHTML = `
       <div class="tabla">
+
+        <h2>${paciente.nombrePaciente}</h2>
+        <p>${paciente.numIdentificacion}</p>
         <table>
           <thead>
             <tr>
-              <th>Nombre</th>
-              <th>Número de documento</th>
               <th>Síntomas del paciente</th>
               <th>Diagnóstico del paciente</th>
               <th>Nombre del medicamento</th>
@@ -338,7 +325,6 @@ class MiHistorial extends HTMLElement {
 customElements.define('mi-historial', MiHistorial);
 
 // Evento para el botón "Generar Historia"
-
 btnGenerarHistoria.addEventListener("click", (event) => {
   event.preventDefault();
 
@@ -349,4 +335,4 @@ btnGenerarHistoria.addEventListener("click", (event) => {
   obtenerDatos(); // Obtener los datos de la base de datos
 });
 
-
+initDB()  

@@ -6,20 +6,19 @@
   <link rel="stylesheet" href="style.css">
   <title>Document</title>
 </head>
-
+<header>
+  <div class="contenedor">
+    <nav class="menu">
+      <ul>
+        <a href="#Registro De Personal"><li>Registro De Personal</li></a>
+        <a href="#Registro De pacientes"><li>Registro De Pasientes</li></a>
+        <a href="#Receta Medica"><li>Recetas Medicas</li></a>
+        <a href="#Historial Medico"><li>Histodial de paciente</li></a>
+      </ul>
+    </nav>
+  </div>
+</header>
 <body>
-  <header>
-    <div class="contenedor" id="floatingMenu" class="floating-menu">
-      <nav class="menu">
-        <ul>
-          <a href="#Registro De Personal"><li>Registro De Personal</li></a>
-          <a href="#Registro De pacientes"><li>Registro De Pasientes</li></a>
-          <a href="#Receta Medica"><li>Recetas Medicas</li></a>
-          <a href="#Historial Medico"><li>Histodial de paciente</li></a>
-        </ul>
-      </nav>
-    </div>
-  </header>
 
   <section id="container">
 
@@ -33,7 +32,7 @@
         <input type="text" class="txt" name="telefono" placeholder="Teléfono">
         <input type="password" class="txt" name="clave" placeholder="Clave">
         <input type="text" class="txt" name="cargo" placeholder="Cargo">
-        <button type="button" class="btn" id="btnPersonal">Guardar</button>
+        <button type="button" class="btn" id="btnPersonal">Guardar Personal</button>
       </form>
     </div>
 
@@ -46,7 +45,7 @@
         <input type="text" class="txt" name="fecha" placeholder="Fecha de nacimiento">
         <input type="text" class="txt" name="genero" placeholder="Genero">
         <input type="file"  name="imagen">
-        <button class="btn" id="btnPaciente">GUARDAR</button>
+        <button class="btn" id="btnPaciente">Guardar Paciente</button>
       </form>
     </div>
 
@@ -78,8 +77,24 @@
         </div>
 
         <div class="xd">
+          <h2 id="Historial Medico">Historias Medicas</h2>
           <input type="text" class="txt" name="numeroDeId" id="numeroDeId" placeholder="Ingrese el numero de Identificación del paciente">
           <div id="historialMedico">
+            <!-- <div  class = "tabla">
+            <table>
+              <thead>
+                  <tr>
+                      <th>Nombre</th>
+                      <th>Número de documento</th>
+                      <th>Síntomas del paciente</th>
+                      <th>Diagnóstico del paciente</th>
+                      <th>Nombre del medicamento</th>
+                      <th>Dosis</th>
+                      <th>Tiempo de tratamiento</th>
+                  </tr>
+              </thead>
+            </table>
+          </div> -->
           </div>
           
           <button type="button" class="btn" id="btnGenerarHistoria">Generar Historia medica</button>
