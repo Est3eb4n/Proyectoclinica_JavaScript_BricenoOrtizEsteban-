@@ -302,9 +302,6 @@ class MiHistorial extends HTMLElement {
     super();
     this.innerHTML = `
       <div class="tabla">
-
-        <h2>${paciente.nombrePaciente}</h2>
-        <p>${paciente.numIdentificacion}</p>
         <table>
           <thead>
             <tr>
